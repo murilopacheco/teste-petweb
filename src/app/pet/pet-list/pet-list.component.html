@@ -1,0 +1,77 @@
+<div class="card">
+  <div class="card-header" style="background-color: #3f51b5; color: white">
+    <h1>
+      Listagem de Animais
+    </h1>
+  </div>
+
+  <br>
+  <button mat-fab color="primary" aria-label="Adicionar um novo Animal"
+  (click)="novoPet()" matTooltip="Adicionar um novo Animal">
+    <mat-icon>add</mat-icon>
+  </button>
+  <div style="padding: 10px; margin-left: 10%">
+    <label id="filtro">Selecione um filtro</label>
+      <mat-radio-group aria-label="filtro"
+                       [(ngModel)]="filtro" class="radio-group-filtro">
+        <mat-radio-button class="radio-button-filtro" value="" (change)="applyFilter('')">Todos</mat-radio-button>
+        <mat-radio-button class="radio-button-filtro" value="true" (change)="applyFilter('true')">Ativos</mat-radio-button>
+        <mat-radio-button class="radio-button-filtro" valuef="false" (change)="applyFilter('false')">Inativos</mat-radio-button>
+      </mat-radio-group>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let pet"> {{pet.id}} </td>
+      </ng-container>
+
+      <!-- Nome Column -->
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef> NOME </th>
+        <td mat-cell *matCellDef="let pet"> {{pet.nome}} </td>
+      </ng-container>
+
+      <!-- Nome Column -->
+      <ng-container matColumnDef="nascimento">
+        <th mat-header-cell *matHeaderCellDef> NASCIMENTO </th>
+        <td mat-cell *matCellDef="let pet"> {{pet.dataNascimento}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="especie">
+        <th mat-header-cell *matHeaderCellDef> ESPECIE </th>
+        <td mat-cell *matCellDef="let pet"> {{pet.especie}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="idade">
+        <th mat-header-cell *matHeaderCellDef> IDADE </th>
+        <td mat-cell *matCellDef="let pet"> {{pet.idade}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="porte">
+        <th mat-header-cell *matHeaderCellDef> PORTE </th>
+        <td mat-cell *matCellDef="let pet"> {{pet.porte}} </td>
+      </ng-container>
+
+      <!-- Ações -->
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
+        <td mat-cell *matCellDef="let pet">
+          <div>
+            <button mat-button color="primary" (click)="editarPet(pet)">Editar</button>
+            <button mat-button color="warn" (click)="delete(pet)">Excluir</button>
+            <mat-slide-toggle [checked]=pet.ativo (change)="ativarInativarPet(pet)">ativo</mat-slide-toggle>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Nenhum registro encontrado</td>
+      </tr>
+
+    </table>
+  </div>
+</div>

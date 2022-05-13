@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-header" style="background-color: #3f51b5; color: white">
+    Detalhes do Animal:
+  </div>
+  <div class="card-body">
+    <div class="card-container">
+      <div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit"  class="form-exemplo">
+          <div style="display: none">
+            <mat-form-field class="example-full-width">
+              <mat-label>ID</mat-label>
+              <input matInput  formControlName="id">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Nome</mat-label>
+            <input type="text" matInput placeholder="Ex. João" formControlName="nome"
+                   [errorStateMatcher]="matcher"
+                   required>
+            <mat-error *ngIf="getControl.nome.hasError('nome') && !getControl.nome.hasError('required')">
+              por favor entre com nome válido!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Especie</mat-label>
+            <input type="text" matInput placeholder="Ex. Cão" formControlName="especie"
+                   [errorStateMatcher]="matcher"
+                   required>
+            <mat-error *ngIf="getControl.especie.hasError('nome') && !getControl.especie.hasError('required')">
+              por favor entre com nome válido!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dataNascimento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>Selecione o porte</mat-label>
+            <mat-select [(value)]="selected" formControlName="porte">
+              <mat-option *ngFor="let option of availableOptions" [value]="option">
+                {{getOptionLabel(option)}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <hr>
+
+          <button mat-button type="submit" (click)="onSubmit()" [disabled]="!form.valid" color="primary"> Salvar </button>
+
+
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
